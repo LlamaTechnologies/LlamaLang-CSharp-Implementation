@@ -6,7 +6,7 @@ Memory is completly managed by the programmer.
 It is strongly tiped and compiled language.
 
 ## Implementation details
-The compiles is made using ANTLR v4 with C# target and it targets LLVM IR so it can be compiled for every hardware supported by LLVM and have debuging capabilities.
+The compiler is made using ANTLR v4 with C# target and it targets LLVM IR so it can be compiled for every hardware supported by LLVM and have debuging capabilities.
 
 ## Example
 An example of the gramar can be found at the files test.def and test.decl.
