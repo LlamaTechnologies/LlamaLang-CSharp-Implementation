@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LlamaLangCompiler", "LlamaLangCompiler.csproj", "{1005153C-ABCF-4E15-B692-5B3F07D74629}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1005153C-ABCF-4E15-B692-5B3F07D74629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1005153C-ABCF-4E15-B692-5B3F07D74629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1005153C-ABCF-4E15-B692-5B3F07D74629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1005153C-ABCF-4E15-B692-5B3F07D74629}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C77812B8-1085-4501-9401-6A1E69316008}
+	EndGlobalSection
+EndGlobal
