@@ -1,0 +1,6 @@
+.antlr/
+*.class
+Compiler/CSharp/bin/
+Compiler/CSharp/obj/
+Compiler/CSharp/packages/
+Compiler/CSharp/.vs/
