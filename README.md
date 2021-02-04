@@ -4,7 +4,7 @@ This is a language for game development heavily inspired by Jonathan Blows langu
 - Sintax Go/TypeScript inspired.
 - Reflection and function compile time excecution.
 - Memory is completly managed by the programmer.
-- Strongly tiped.
+- Strongly typed.
 - Compiled.
 
 See the wiki for language definition  
