@@ -7,7 +7,7 @@ This is a language for game development heavily inspired by Jonathan Blows langu
 - Strongly typed.
 - Compiled.
 
-See the wiki for language definition  
+See the [wiki](https://github.com/Pablo96/LlamaLang/wiki) for language definition  
 
 ## Implementation details
 The compiler is made using ANTLR v4 with C# target and it targets LLVM IR so it can be compiled for every hardware supported by LLVM and have debuging capabilities.
