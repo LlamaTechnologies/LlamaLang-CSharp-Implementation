@@ -31,12 +31,6 @@ namespace LlamaLangCompiler
                 }
             });
 
-            LLVM.InitializeX86TargetMC();
-            LLVM.InitializeX86Target();
-            LLVM.InitializeX86TargetInfo();
-            LLVM.InitializeX86AsmParser();
-            LLVM.InitializeX86AsmPrinter();
-            
             LLVM.DumpModule(module);
             LLVM.DisposeBuilder(builder);
         }

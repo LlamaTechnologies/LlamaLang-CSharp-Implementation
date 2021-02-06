@@ -7,9 +7,9 @@ namespace LlamaLangCompiler
 {
     public class Compiler
     {
-        static string logFileName = @"../../../../Examples/log_antlr4.txt";
+        static string logFileName = @"../../../../../Examples/log_antlr4.txt";
         //static string inputFileName = @"../../../../Examples/test_function_syntax_errors.llang";
-        static string inputFileName = @"../../../../Examples/test_function.llang";
+        static string inputFileName = @"../../../../../Examples/test_function.llang";
 
         public static void Main(string[] args)
         {
@@ -76,7 +76,6 @@ namespace LlamaLangCompiler
 
             // Create IR
             Console.WriteLine("======== Intermediate Representation ========");
-
             IR.Translate(analisedAST);
 
             Console.ReadKey();
