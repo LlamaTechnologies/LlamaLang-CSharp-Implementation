@@ -63,14 +63,19 @@ namespace LlamaLangCompiler
             Console.WriteLine();
             Console.WriteLine(analisedAST);
 
+            
             // Close logFile
             logOut?.Dispose();
             logFile?.Close();
-
             Console.ReadKey();
+            
 
+            // If errors do not create executable
+            if (errors.Count > 0)
+                return;
 
             // Done!
+
         }
     }
 }

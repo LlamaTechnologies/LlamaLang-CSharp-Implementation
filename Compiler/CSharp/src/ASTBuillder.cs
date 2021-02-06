@@ -157,14 +157,21 @@ namespace LlamaLangCompiler
             string msg = context.GetType().Name + "\t| Parent :: " + parentContext.GetType().Name + "\t| ASTnode :: " + parentContext.ASTnode?.GetType().Name;
             Console.WriteLine(msg);
 
-            var node = base.VisitChildren(context);
-            if (node.GetType() == typeof(ASTConstantNode))
+            var childNode = base.VisitChildren(context);
+            var childNodeType = childNode.GetType();
+            if (childNodeType == typeof(ASTUnaryStatementNode))
             {
-                var constNode = (ASTConstantNode)node;
-                constNode.Value = context.unaryOp().GetText() + constNode.Value;
+                var node = (ASTUnaryStatementNode)childNode;
+                var nodeType = node.Right.GetType();
+                if (nodeType == typeof(ASTConstantNode))
+                {
+                    var constNode = (ASTConstantNode)node.Right;
+                    constNode.Value = context.unaryOp().GetText() + constNode.Value;
+                }
             }
+            
 
-            return node;
+            return childNode;
         }
 
         public override ASTNode VisitExpression([NotNull] ExpressionContext context)
