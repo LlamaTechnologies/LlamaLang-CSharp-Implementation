@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LLVMSharp;
 
 namespace LlamaLangCompiler
@@ -21,8 +17,8 @@ namespace LlamaLangCompiler
 
             var functionType = LLVM.FunctionType(returnType, args.ToArray(), false);
             var function= LLVM.AddFunction(module, node.Name, functionType);
-            LLVM.SetLinkage(function, LLVMLinkage.LLVMExternalLinkage);
-
+            LLVM.SetLinkage(function, LLVMLinkage.LLVMLinkOnceAnyLinkage);
+            LLVM.AddTargetDependentFunctionAttr(function, "nounwind", "");
             // Create a new basic block to start insertion into.
             LLVMBasicBlockRef block = LLVM.AppendBasicBlock(function, "entry");
             LLVM.PositionBuilderAtEnd(builder, block);
