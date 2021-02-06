@@ -3,30 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LLVMSharp;
 
 namespace LlamaLangCompiler
 {
     public partial class IR
     {
-        private static string TranslateNode(ASTFunctionNode node)
+        private static LLVMValueRef TranslateNode(ASTFunctionNode node)
         {
-            return "";
-        }
-
-        private static string TranslateNode(ASTUnaryStatementNode node)
-        {
-            string code = "";
-            switch (node.StmntType)
+            LLVMTypeRef returnType = TranslateType(node.ReturnType);
+            var args = new List<LLVMTypeRef>();
+            foreach (var param in node.Parameters)
             {
-                case STATEMENT_TYPE.RETURN:
-
-                    break;
+                var paramType = TranslateType(param.VarType);
+                args.Add(paramType);
             }
-            code += TranslateNode(node.Right);
-            return "";
+
+            var functionType = LLVM.FunctionType(returnType, args.ToArray(), false);
+            var function= LLVM.AddFunction(module, node.Name, functionType);
+            LLVM.SetLinkage(function, LLVMLinkage.LLVMExternalLinkage);
+
+            // Create a new basic block to start insertion into.
+            LLVMBasicBlockRef block = LLVM.AppendBasicBlock(function, "entry");
+            LLVM.PositionBuilderAtEnd(builder, block);
+
+            foreach (var stmnt in node.Block)
+            {
+                switch (stmnt.StmntType)
+                {
+                    case STATEMENT_TYPE.RETURN:
+                        LLVM.BuildRet(builder, TranslateNode((ASTUnaryStatementNode)stmnt));
+                        break;
+
+                }
+            }
+
+            return function;
         }
 
-        private static string TranslateNode(ASTRightValueNode node)
+        private static LLVMValueRef TranslateNode(ASTUnaryStatementNode node)
+        {
+            return TranslateNode(node.Right);
+        }
+
+        private static LLVMValueRef TranslateNode(ASTRightValueNode node)
         {
             switch (node.GetType().Name)
             {
@@ -34,24 +54,67 @@ namespace LlamaLangCompiler
                     var constantNode = (ASTConstantNode)node;
                     return TranslateNode(constantNode);
                 default:
-                    return "";
+                    return new LLVMValueRef();
             }
         }
 
-        private static string TranslateNode(ASTConstantNode node)
+        private static LLVMValueRef TranslateNode(ASTConstantNode node)
         {
             switch(node.ConstType)
             {
                 case CONSTANT_TYPE.CHAR:
-                    break;
+                    return LLVM.ConstInt(LLVM.Int8Type(), ulong.Parse(node.Value), true);
+                default:
                 case CONSTANT_TYPE.INTEGER:
-                    break;
+                    return LLVM.ConstInt(LLVM.Int64Type(), ulong.Parse(node.Value), true);
                 case CONSTANT_TYPE.FLOAT:
-                    break;
+                    return LLVM.ConstReal(LLVM.DoubleType(), double.Parse(node.Value));
                 case CONSTANT_TYPE.STRING:
-                    break;
+                    return LLVM.ConstString(node.Value, (uint) node.Value.Length, true);
             }
-            return "";
+        }
+
+        private static LLVMTypeRef TranslateType(string typeName)
+        {
+            if (Primitives.Exists(typeName))
+            {
+                var primitive = Primitives.Get(typeName);
+                switch (primitive)
+                {
+                    case PRIMITIVE_TYPE.BOOL:
+                        return LLVM.Int1Type();
+
+                    case PRIMITIVE_TYPE.SCHAR:
+                    case PRIMITIVE_TYPE.CHAR:
+                    case PRIMITIVE_TYPE.UINT8:
+                    case PRIMITIVE_TYPE.INT8:
+                        return LLVM.Int8Type();
+
+                    case PRIMITIVE_TYPE.WCHAR:
+                    case PRIMITIVE_TYPE.UINT16:
+                    case PRIMITIVE_TYPE.INT16:
+                        return LLVM.Int16Type();
+
+                    case PRIMITIVE_TYPE.UCHAR:
+                    case PRIMITIVE_TYPE.UINT32:
+                    case PRIMITIVE_TYPE.INT32:
+                        return LLVM.Int32Type();
+                    
+                    default:
+                    case PRIMITIVE_TYPE.UINT64:
+                    case PRIMITIVE_TYPE.INT64:
+                        return LLVM.Int64Type();
+
+                    case PRIMITIVE_TYPE.FLOAT32:
+                        return LLVM.FloatType();
+                    case PRIMITIVE_TYPE.FLOAT64:
+                        return LLVM.DoubleType();
+                }
+            } else
+            {
+                return LLVM.Int64Type();
+            }
+            
         }
     }
 }

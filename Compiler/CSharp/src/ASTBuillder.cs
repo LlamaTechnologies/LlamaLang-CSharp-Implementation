@@ -20,6 +20,7 @@ namespace LlamaLangCompiler
             ASTree = new ASTProgramNode();
             Errors = new List<ErrorDescription>();
             this.fileName = fileName;
+            ASTree.File = fileName;
         }
 
         public override ASTNode VisitSourceFile([NotNull] SourceFileContext context)

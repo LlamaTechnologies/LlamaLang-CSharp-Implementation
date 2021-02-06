@@ -8,18 +8,33 @@ namespace LlamaLangCompiler
     **/
     public enum PRIMITIVE_TYPE
     {
+        // SPECIALS
         VOID,
-        BYTE,
-        UBYTE,
-        WORD,
-        UWORD,
-        INT,
-        UINT,
-        LONG,
-        ULONG,
-        STRING,
-        FLOAT,
-        DOUBLE
+        BOOL,
+
+        // SIGNED
+        INT8,
+        INT16,
+        INT32,
+        INT64,
+        
+
+        /* CHARACTERS */
+        SCHAR,  // ASCII
+        CHAR,   // UTF-8
+        WCHAR,  // UTF-16
+        UCHAR,  // UNICODE
+
+        /* UNSIGNED */
+        BYTE,   // Alias for uint8
+        UINT8,
+        UINT16,
+        UINT32,
+        UINT64,
+        
+        /* FLOATING POINT */
+        FLOAT32,
+        FLOAT64       
     }
 
     /**

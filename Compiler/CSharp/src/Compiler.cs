@@ -68,14 +68,18 @@ namespace LlamaLangCompiler
             logOut?.Dispose();
             logFile?.Close();
             Console.ReadKey();
-            
+
 
             // If errors do not create executable
             if (errors.Count > 0)
                 return;
 
             // Create IR
+            Console.WriteLine("======== Intermediate Representation ========");
+
             IR.Translate(analisedAST);
+
+            Console.ReadKey();
 
             // Create executable
 

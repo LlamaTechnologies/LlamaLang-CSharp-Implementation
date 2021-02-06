@@ -1,3 +1,3 @@
-func main(argc: int, argv: []char) -> int {
+func EntryPoint(argc: int, argv: []char) -> int {
     return 5;
 }

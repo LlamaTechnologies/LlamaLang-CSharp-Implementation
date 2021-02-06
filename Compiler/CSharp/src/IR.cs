@@ -6,36 +6,39 @@ namespace LlamaLangCompiler
 {
     public partial class IR
     {
-        private static string _objFile = "";
         private static LLVMModuleRef module;
         private static LLVMBuilderRef builder;
 
-        static IR ()
-        {
-            module = LLVM.ModuleCreateWithName("my cool jit");
-            builder = LLVM.CreateBuilder();
-        }
 
-        public static string Translate(ASTProgramNode program)
+        public static void Translate(ASTProgramNode program)
         {
-            program.ForEachChildDeep((node) =>
+            module = LLVM.ModuleCreateWithName(program.File);
+            builder = LLVM.CreateBuilder();
+
+            program.ForEachChild((node) =>
             {
                 var nodeType = node.GetType();
                 switch (nodeType.Name) 
                 {
                     case "ASTFunctionNode":
                         var funcNode = (ASTFunctionNode)node;
-                        _objFile += TranslateNode(funcNode);
+                        TranslateNode(funcNode);
                         break;
-                    case "ASTUnaryStatementNode":
-                        var unaryStmntNode = (ASTUnaryStatementNode)node;
-                        _objFile += TranslateNode(unaryStmntNode);
+                    default:
+                        Console.WriteLine(nodeType.Name + " Not implemented");
                         break;
                         
                 }
-                
             });
-            return _objFile;
+
+            LLVM.InitializeX86TargetMC();
+            LLVM.InitializeX86Target();
+            LLVM.InitializeX86TargetInfo();
+            LLVM.InitializeX86AsmParser();
+            LLVM.InitializeX86AsmPrinter();
+            
+            LLVM.DumpModule(module);
+            LLVM.DisposeBuilder(builder);
         }
 
     }
