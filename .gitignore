@@ -3,4 +3,6 @@
 Compiler/CSharp/bin/
 Compiler/CSharp/obj/
 Compiler/CSharp/packages/
+Compiler/CSharp/x86/
+Compiler/CSharp/x64/
 Compiler/CSharp/.vs/
