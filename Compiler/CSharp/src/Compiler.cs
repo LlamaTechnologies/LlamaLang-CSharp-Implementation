@@ -8,8 +8,8 @@ namespace LlamaLangCompiler
     public class Compiler
     {
         static string logFileName = @"../../../../Examples/log_antlr4.txt";
-        static string inputFileName = @"../../../../Examples/test_function_syntax_errors.llang";
-        //static string inputFileName = @"../../../../Examples/test_function.llang";
+        //static string inputFileName = @"../../../../Examples/test_function_syntax_errors.llang";
+        static string inputFileName = @"../../../../Examples/test_function.llang";
 
         public static void Main(string[] args)
         {
@@ -74,8 +74,12 @@ namespace LlamaLangCompiler
             if (errors.Count > 0)
                 return;
 
-            // Done!
+            // Create IR
+            IR.Translate(analisedAST);
 
+            // Create executable
+
+            // Done!
         }
     }
 }

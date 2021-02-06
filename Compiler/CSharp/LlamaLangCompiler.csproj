@@ -190,6 +190,7 @@
     <Compile Include="src\antlr\LlamaLangLexer.cs" />
     <Compile Include="src\antlr\LlamaLangParser.cs" />
     <Compile Include="src\antlr\LlamaLangVisitor.cs" />
+    <Compile Include="src\IR.translations.cs" />
     <Compile Include="src\ast\ASTConstantNode.cs" />
     <Compile Include="src\ast\ASTNode.cs" />
     <Compile Include="src\ast\ASTBinaryStatementNode.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="src\ASTBuillder.cs" />
     <Compile Include="src\errorlistener\ErrorDescription.cs" />
     <Compile Include="src\exceptions\InvalidDataTypeException.cs" />
-    <Compile Include="src\GeneratorLLVM.cs" />
+    <Compile Include="src\IR.cs" />
     <Compile Include="src\Primitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ast\ASTProgramNode.cs" />
